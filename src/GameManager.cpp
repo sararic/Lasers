@@ -21,7 +21,7 @@ GameManager::GameManager(Scene* scene):
     m_dragged_obj{nullptr},
     m_drag_initial{-1,-1}
 {
-    m_dots_surface = IMG_Load((RESOURCES+"dots.png").c_str());
+    m_dots_surface = IMG_Load((std::string{RESOURCES}+"dots.png").c_str());
     if(m_dots_surface == nullptr) throw InitError{InitError::IMG};
 
     m_scene->add(&m_bg);

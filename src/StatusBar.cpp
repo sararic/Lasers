@@ -13,7 +13,7 @@ StatusBar::StatusBar(const Scene* scene,
     m_obstacles{obstacles},
     m_texture{nullptr}
 {
-    m_font = TTF_OpenFont((RESOURCES+"arcadeclassic.ttf").c_str(), 24);
+    m_font = TTF_OpenFont((std::string{RESOURCES}+"arcadeclassic.ttf").c_str(), 24);
     if (m_font == nullptr) throw InitError{InitError::TTF};
 }
 
