@@ -250,7 +250,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -Wall -std=c++17 -O2 -D_REENTRANT -s -I$(includedir)/SDL2 -I/usr/include/SDL2 -DRESOURCES=std::string\{\"$(pkgdatadir)/\"\}
+AM_CPPFLAGS = -Wall -std=c++17 -O2 -D_REENTRANT -s -I$(includedir)/SDL2 -I/usr/include/SDL2 -DRESOURCES=\"$(pkgdatadir)/\"
 AM_LDFLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 lasers_SOURCES = Background.cpp Button.cpp GameManager.cpp GameObject.cpp Laser.cpp StatusBar.cpp Scene.cpp main.cpp
 all: all-am

@@ -82,53 +82,53 @@ void Laser::compute_trajectory(Laser::LatticePoint target)
     nodes.push(start); nodes.push(finish);
 
     int k{1};
-    float t{float{start.x - target.Lx}/(start.x - target.x_coord())};
+    float t{(float)(start.x - target.Lx)/(start.x - target.x_coord())};
     while(0 < t && t < 1){
         p.t = t;
         p.x = (k%2) ? m_width : 0;
-        p.y = int{std::round((1-t)*start.y + target.y_coord()*t)} % (2*m_height);
+        p.y = (int)std::round((1-t)*start.y + target.y_coord()*t) % (2*m_height);
         if(p.y < 0 ) p.y = 2*m_height + p.y;
         p.y = m_height - std::abs(p.y - m_height);
         nodes.push(p);
         k++;
-        t = float{k*target.Lx - start.x}/(target.x_coord() - start.x);
+        t = k*(float)(target.Lx - start.x)/(target.x_coord() - start.x);
     }
     k = 0;
-    t = float{start.x}/(start.x - target.x_coord());
+    t = (float)start.x/(start.x - target.x_coord());
     while(0 < t && t < 1){
         p.t = t;
         p.x = (k%2) ? m_width : 0;
-        p.y = int{std::round((1-t)*start.y + target.y_coord()*t)} % (2*m_height);
+        p.y = (int)std::round((1-t)*start.y + target.y_coord()*t) % (2*m_height);
         if(p.y < 0 ) p.y = 2*m_height + p.y;
         p.y = m_height - std::abs(p.y - m_height);
         nodes.push(p);
         k--;
-        t = float{k*target.Lx - start.x}/(target.x_coord() - start.x);
+        t = k*(float)(target.Lx - start.x)/(target.x_coord() - start.x);
     }
 
     k = 1;
-    t = float{start.y - target.Ly}/(start.y - target.y_coord());
+    t = (float)(start.y - target.Ly)/(start.y - target.y_coord());
     while(0 < t && t < 1){
         p.t = t;
         p.y = (k%2) ? m_height : 0;
-        p.x = int{std::round((1-t)*start.x + target.x_coord()*t)} % (2*m_width);
+        p.x = (int)std::round((1-t)*start.x + target.x_coord()*t) % (2*m_width);
         if(p.x < 0) p.x = 2*m_width + p.x;
         p.x = m_width - std::abs(p.x - m_width);
         nodes.push(p);
         k++;
-        t = float{k*target.Ly - start.y}/(target.y_coord() - start.y);
+        t = k*(float)(target.Ly - start.y)/(target.y_coord() - start.y);
     }
     k = 0;
-    t = float{start.y}/(start.y - target.y_coord());
+    t = (float)start.y/(start.y - target.y_coord());
     while(0 < t && t < 1){
         p.t = t;
         p.y = (k%2) ? m_height : 0;
-        p.x = int{std::round((1-t)*start.x + target.x_coord()*t)} % (2*m_width);
+        p.x = (int)std::round((1-t)*start.x + target.x_coord()*t) % (2*m_width);
         if(p.x < 0) p.x = 2*m_width + p.x;
         p.x = m_width - std::abs(p.x - m_width);
         nodes.push(p);
         k--;
-        t = float{k*target.Ly - start.y}/(target.y_coord() - start.y);
+        t = k*(float)(target.Ly - start.y)/(target.y_coord() - start.y);
     }
 
     // we can then construct the segments
@@ -177,7 +177,7 @@ bool Laser::is_intercepted() const
             return true;
 
         // check all other segments
-        for(int i{1} ; i < m_trajectory.size()-1 ; i++)
+        for(size_t i{1} ; i < m_trajectory.size()-1 ; i++)
         {
             v_obs.x0 = m_trajectory[i].x0;
             v_obs.y0 = m_trajectory[i].y0;
@@ -204,8 +204,10 @@ std::set<std::pair<int,int>> Laser::get_solution() const
     {
         int x{( (i&1 ? 1 : -1) * (x0 + (i&2 ? 1 : -1)*x1 )/2 ) % m_width};
         int y{( (i&4 ? 1 : -1) * (y0 + (i&8 ? 1 : -1)*y1 )/2 ) % m_height};
-        if(x < 0) x = m_width + x; if(x == 0) x = i&1 ? 0 : m_width;
-        if(y < 0) y = m_height + y; if(y == 0) y = i&4 ? 0 : m_height;
+        if(x < 0) x = m_width + x;
+        else if(x == 0) x = i&1 ? 0 : m_width;
+        if(y < 0) y = m_height + y;
+        else if(y == 0) y = i&4 ? 0 : m_height;
         solution.insert(std::pair<int,int>{x,y});
     }
     return solution;

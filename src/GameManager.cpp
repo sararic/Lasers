@@ -8,10 +8,10 @@ GameManager::GameManager(Scene* scene):
     rnd_gen{rd()},
     m_width{scene->w()},
     m_height{scene->h()-100},
-    m_bg{m_width, m_height},
     m_dots_surface{nullptr},
     m_dots_texture{nullptr},
     m_scene{scene},
+    m_bg{m_width, m_height},
     m_shooter{0,0},
     m_target{0,0},
     m_obstacles{},
@@ -100,12 +100,12 @@ int GameManager::manage_event(SDL_Event const& e)
             m_drag_initial.first = -1;
         }
 
-        int x{PXL*std::round(float{m_dragged_obj->x()}/PXL)};
-        int y{PXL*std::round(float{m_dragged_obj->y()}/PXL)};
+        int x{PXL*(int)std::round((float)(m_dragged_obj->x())/PXL)};
+        int y{PXL*(int)std::round((float)(m_dragged_obj->y())/PXL)};
 
         // avoid covering existing objects
-        if(x == m_shooter.x() && y == m_shooter.y()
-        || x == m_target.x() && y == m_target.y())
+        if(( x == m_shooter.x() && y == m_shooter.y() )
+        || ( x == m_target.x() && y == m_target.y()) )
             x += PXL;
         for(auto obs : m_obstacles) if(
             m_dragged_obj != obs && x == obs->x() && y == obs->y())
