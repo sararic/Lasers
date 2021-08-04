@@ -1,0 +1,9 @@
+*.log
+*.status
+*.cache
+*.o
+src/lasers
+stamp*
+*~
+*makefile
+config.h
