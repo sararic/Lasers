@@ -8,3 +8,4 @@ stamp*
 *~
 *makefile
 config.h
+.vscode*
