@@ -6,6 +6,11 @@
 src/lasers
 stamp*
 *~
-*makefile
-config.h
+*makefile*
+config.h*
 .vscode*
+*.m4
+configure
+depcomp
+install-sh
+missing
