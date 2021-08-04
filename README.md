@@ -12,17 +12,20 @@ A sniper is aiming at you with a laser, inside a room covered with
 
 Install the necessary dependences, `libsdl2-2.0-0`, 
 `libsdl2-image-2.0-0`,
-and `libsdl2-ttf-2.0-0`. On Debian based distributions,
+`libsdl2-ttf-2.0-0`,
+and also `automake`. On Debian based distributions,
 ```shell
 $ sudo apt update
 $ sudo apt install libsdl2-2.0-0\
   libsdl2-image-2.0-0\
-  libsdl2-ttf-2.0-0
+  libsdl2-ttf-2.0-0\
+  automake
 ```
   Clone this repository, configure, make, and make install,
   ```shell
 $ git clone https://github.com/sbacco/Lasers.git
 $ cd Lasers
+$ autoreconf -i
 $ ./configure
 $ make
 $ sudo make install
