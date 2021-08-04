@@ -22,6 +22,7 @@ $ sudo apt install libsdl2-2.0-0\
   Clone this repository, configure, make, and make install,
   ```shell
 $ git clone https://github.com/sbacco/Lasers.git
+$ cd Lasers
 $ ./configure
 $ make
 $ sudo make install
