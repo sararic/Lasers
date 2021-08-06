@@ -91,7 +91,7 @@ void Laser::compute_trajectory(Laser::LatticePoint target)
         p.y = m_height - std::abs(p.y - m_height);
         nodes.push(p);
         k++;
-        t = k*(float)(target.Lx - start.x)/(target.x_coord() - start.x);
+        t = (float)(k*target.Lx - start.x)/(target.x_coord() - start.x);
     }
     k = 0;
     t = (float)start.x/(start.x - target.x_coord());
@@ -103,7 +103,7 @@ void Laser::compute_trajectory(Laser::LatticePoint target)
         p.y = m_height - std::abs(p.y - m_height);
         nodes.push(p);
         k--;
-        t = k*(float)(target.Lx - start.x)/(target.x_coord() - start.x);
+        t = (float)(k*target.Lx - start.x)/(target.x_coord() - start.x);
     }
 
     k = 1;
@@ -116,7 +116,7 @@ void Laser::compute_trajectory(Laser::LatticePoint target)
         p.x = m_width - std::abs(p.x - m_width);
         nodes.push(p);
         k++;
-        t = k*(float)(target.Ly - start.y)/(target.y_coord() - start.y);
+        t = (float)(k*target.Ly - start.y)/(target.y_coord() - start.y);
     }
     k = 0;
     t = (float)start.y/(start.y - target.y_coord());
@@ -128,7 +128,7 @@ void Laser::compute_trajectory(Laser::LatticePoint target)
         p.x = m_width - std::abs(p.x - m_width);
         nodes.push(p);
         k--;
-        t = k*(float)(target.Ly - start.y)/(target.y_coord() - start.y);
+        t = (float)(k*target.Ly - start.y)/(target.y_coord() - start.y);
     }
 
     // we can then construct the segments
