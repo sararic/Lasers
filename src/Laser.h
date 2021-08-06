@@ -48,9 +48,9 @@ class Laser : public GameObject
         std::set<std::pair<int,int>> get_solution() const;
 
     private:
-        // find a non-obstructed straight line to a point on the target lattice
         bool is_intercepted() const;
         bool check_collision(Segment const& s, Segment v_obs) const;
+        // find a non-obstructed straight line to a point on the target lattice
         void compute_trajectory(LatticePoint target);
 
         int m_width;

@@ -114,9 +114,6 @@ int GameManager::manage_event(SDL_Event const& e)
         m_dragged_obj->setPos(x, y);
         m_dragged_obj = nullptr;
 
-        if(!m_laser.can_hit_target()) // we won!
-            m_target.setHit(false);
-
         refresh_all();
     }
 
