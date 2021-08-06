@@ -1,1 +1,1 @@
-pkgdata_DATA = dots.png arcadeclassic.ttf
+dist_pkgdata_DATA = dots.png arcadeclassic.ttf
