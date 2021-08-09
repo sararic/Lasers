@@ -1,5 +1,11 @@
 *.deps*
 *.log
+*.aux
+*.fls
+*.out
+*_latexmk
+*.toc
+*.gz
 *.status
 *.cache
 *.o
