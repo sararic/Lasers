@@ -4,6 +4,7 @@
 
 Scene::Scene(int win_width, int win_height,
              std::string title, int delta_t, Uint32 flags):
+    m_window{nullptr}, m_renderer{nullptr},
     m_dt{delta_t}, m_w{win_width}, m_h{win_height}
 {
     if ( SDL_Init( flags ) != 0 )
@@ -15,11 +16,14 @@ Scene::Scene(int win_width, int win_height,
     if ( TTF_Init() != 0 )
         throw InitError{InitError::TTF};
 
-    if ( SDL_CreateWindowAndRenderer( win_width, win_height, SDL_WINDOW_HIDDEN,
-                                      &m_window, &m_renderer ) != 0 )
-        throw InitError{};
+    m_window = SDL_CreateWindow("Lasers!",
+                                SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,
+                                win_width, win_height,
+                                SDL_WINDOW_HIDDEN);
+    if(m_window == nullptr) throw InitError{};
 
-    SDL_SetWindowTitle(m_window, title.c_str());
+    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+    if(m_renderer == nullptr) throw InitError{};
 }
 
 Scene::~Scene()
