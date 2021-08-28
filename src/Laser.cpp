@@ -10,28 +10,53 @@ Laser::Laser(int width, int height,
     m_width{width}, m_height{height},
     m_shooter{shooter}, m_target{target},
     m_obstacles{obstacles},
-    m_trajectory{}
+    m_trajectory{},
+    m_texture{nullptr}, m_surface{nullptr},
+    m_soft_renderer{nullptr}
+{
+    m_surface = SDL_CreateRGBSurfaceWithFormat(0, m_width, m_height,
+        8, SDL_PIXELFORMAT_RGBA8888);
+    if(m_surface == nullptr) throw InitError{};
+    m_soft_renderer = SDL_CreateSoftwareRenderer(m_surface);
+    if(m_soft_renderer == nullptr) throw InitError{};
+}
+
+Laser::~Laser()
+{
+    if(m_soft_renderer) SDL_DestroyRenderer(m_soft_renderer);
+    if(m_surface) SDL_FreeSurface(m_surface);
+    if(m_texture) SDL_DestroyTexture(m_texture);
+}
+
+void Laser::init()
 {
     refresh_trajectory();
 }
 
-void Laser::update()
+void Laser::refresh_texture()
 {
-    SDL_SetRenderDrawColor(m_renderer, 255, 0, 0, 255);
+    SDL_SetRenderDrawColor(m_soft_renderer, 0,0,0,0);
+    SDL_RenderClear(m_soft_renderer);
+    SDL_SetRenderDrawColor(m_soft_renderer, 255, 0, 0, 255);
 
     for(auto s : m_trajectory)
-        SDL_RenderDrawLine(m_renderer,s.x0,s.y0,s.x1,s.y1);
-/*
-    SDL_SetRenderDrawColor(m_renderer, 0, 255, 0, 255);
-    for(auto p : get_solution())
-        SDL_RenderDrawPoint(m_renderer, p.first, p.second);
-*/
+        SDL_RenderDrawLine(m_soft_renderer,s.x0,s.y0,s.x1,s.y1);
+
+    if(m_texture) SDL_DestroyTexture(m_texture);
+    m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
+}
+
+void Laser::update()
+{
+    SDL_Rect r{0,0,m_width,m_height};
+    SDL_RenderCopy(m_renderer, m_texture, &r, &r);
 }
 
 void Laser::refresh_trajectory(bool higher_degree)
 {
     if(!can_hit_target()) {
         m_trajectory = {};
+        refresh_texture();
         return;
     }
 
@@ -54,6 +79,7 @@ void Laser::refresh_trajectory(bool higher_degree)
 
         if(!is_intercepted()) {
             m_current = p;
+            refresh_texture();
             return;
         }
 

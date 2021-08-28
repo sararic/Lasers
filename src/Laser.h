@@ -40,14 +40,17 @@ class Laser : public GameObject
               const Shooter* shooter,
               const Target* target,
               const std::vector<Obstacle*>* obstacles);
+        virtual ~Laser();
 
         void update();
+        void init();
 
         void refresh_trajectory(bool higher_degree=false);
         bool can_hit_target() const;
         std::set<std::pair<int,int>> get_solution() const;
 
     private:
+        void refresh_texture();
         bool is_intercepted() const;
         bool check_collision(Segment const& s, Segment v_obs) const;
         // find a non-obstructed straight line to a point on the target lattice
@@ -61,6 +64,10 @@ class Laser : public GameObject
         int m_obstacle_size;
         std::vector<Segment> m_trajectory;
         LatticePoint m_current;
+
+        SDL_Texture* m_texture;
+        SDL_Surface* m_surface;
+        SDL_Renderer* m_soft_renderer;
 };
 
 bool operator<(Laser::Node const& a, Laser::Node const& b);
