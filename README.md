@@ -8,34 +8,39 @@ A sniper is aiming at you with a laser, inside a room covered with
  mirrors (mondays, uh). Luckily, you have up to 16 blue obstacles at
   your disposal to block the laser. Will you be able to do it?
 
-  # Installation
+## Installation
 
-Install the necessary dependences, `libsdl2-2.0-0`, 
+Install the necessary dependences, `libsdl2-2.0-0`,
 `libsdl2-image-2.0-0`,
 `libsdl2-ttf-2.0-0`,
 and also `automake`. On Debian based distributions,
+
 ```shell
-$ sudo apt update
-$ sudo apt install libsdl2-2.0-0\
+sudo apt update
+sudo apt install libsdl2-2.0-0\
   libsdl2-image-2.0-0\
   libsdl2-ttf-2.0-0\
   automake
 ```
-  Clone this repository, configure, make, and make install,
-  ```shell
-$ git clone https://github.com/sbacco/Lasers.git
-$ cd Lasers
-$ autoreconf -i
-$ ./configure
-$ make
-$ sudo make install
-  ```
-You can now run `Lasers!`,
+
+Clone this repository, configure, make, and make install,
+
 ```shell
-$ lasers
+git clone https://github.com/sbacco/Lasers.git
+cd Lasers
+autoreconf -i
+./configure
+make
+sudo make install
+```
+  
+You can now run `Lasers!`,
+
+```shell
+lasers
 ```
 
-# Todo list
+## Todo list
 
 - [ ] Add an in-depth documentation, where I go into all of the
       interesting mathematical details.
